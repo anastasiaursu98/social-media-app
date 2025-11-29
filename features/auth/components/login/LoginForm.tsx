@@ -13,9 +13,11 @@ import { FormActions } from "../FormActions";
 import { DividerWithText } from "./DividerWithText";
 import { OAuthButton } from "./OAuthButton";
 
+import { ROUTES } from "@/constants/routes";
 import * as z from "zod";
 import { loginApi } from "../../services/loginApi";
 import { AuthStore } from "../../store/auth.store";
+import { AuthFooter } from "../commun/AuthFooter";
 
 export const loginSchema = z.object({
   email: z
@@ -133,6 +135,11 @@ export const LoginForm = () => {
               <FaFacebook className="w-4 h-4" style={{ color: "#1877F2" }} />
             }
             label="Continue with Facebook"
+          />
+          <AuthFooter
+            text="Don't have an account?"
+            link={ROUTES.REGISTER}
+            linkText="Sign up"
           />
         </form>
       </AuthCard>
