@@ -1,6 +1,7 @@
 import { LayoutWrapper } from "@/layouts/LayoutWrapper";
 import type { Metadata } from "next";
 import { Kaushan_Script, Roboto } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const roboto = Roboto({
@@ -16,8 +17,9 @@ const kaushanScript = Kaushan_Script({
 });
 
 export const metadata: Metadata = {
-  title: "Social Media App",
-  description: "Social Media App",
+  title: "StoryLine",
+  description:
+    "StoryLine is a social media platform for sharing your stories with the world",
 };
 
 export default function RootLayout({
@@ -31,6 +33,7 @@ export default function RootLayout({
         className={`${roboto.variable} ${kaushanScript.variable} antialiased`}
       >
         <LayoutWrapper>{children}</LayoutWrapper>
+        <Analytics />
       </body>
     </html>
   );
