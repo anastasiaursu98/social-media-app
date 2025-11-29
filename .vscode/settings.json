@@ -1,9 +1,54 @@
 {
   "editor.codeActionsOnSave": {
-    "source.organizeImports": "explicit"
+      "source.fixAll.eslint": "explicit"
   },
+  "eslint.validate": [
+      "javascript"
+  ],
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "[scss]": {
+      "editor.defaultFormatter": "vscode.css-language-features"
+  },
+  "[jsonc]": {
+      "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  },
+  "[javascript]": {
+      "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  },
+  "yaml.schemas": {
+      "file:///c%3A/Users/Anastasia%20Ursu/.vscode/extensions/atlassian.atlascode-3.4.11/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+  },
+  "atlascode.jira.enabled": false,
+  "[json]": {
+      "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  },
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "[html]": {
+      "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "[typescriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.unicodeHighlight.allowedLocales": {
+      "zh-hans": true
+  },
+  "window.zoomLevel": 1,
+  "[javascriptreact]": {
+      "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "window.commandCenter": false,
+  "workbench.iconTheme": "material-icon-theme",
+  "hediet.vscode-drawio.resizeImages": null,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "notebook.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "typescript.preferences.organizeImports": true,
-  "javascript.preferences.organizeImports": true
+  "security.workspace.trust.emptyWindow": false,
+  "workbench.colorTheme": "Default Dark Modern",
+  "explorer.confirmDelete": false,
+  "git.openRepositoryInParentFolders": "never",
+  "workbench.editorAssociations": {
+      "*.data": "default"
+  },
+  "editor.minimap.enabled": true
 }
-

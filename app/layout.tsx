@@ -1,3 +1,4 @@
+import { LayoutWrapper } from "@/layouts/LayoutWrapper";
 import type { Metadata } from "next";
 import { Kaushan_Script, Roboto } from "next/font/google";
 import "./globals.css";
@@ -29,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${roboto.variable} ${kaushanScript.variable} antialiased`}
       >
-        {children}
+        <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );
