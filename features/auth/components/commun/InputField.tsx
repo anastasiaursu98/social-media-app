@@ -51,6 +51,7 @@ export const InputField = ({
 
           {password && (
             <Button
+              type="button"
               variant="ghost"
               size="icon"
               className="absolute right-3 top-1/2 -translate-y-1/2"

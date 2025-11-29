@@ -2,7 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LockIcon, UserIcon } from "lucide-react";
+import { Loader2, LockIcon, UserIcon } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
 import { AuthCard } from "../commun/AuthCard";
@@ -13,8 +14,8 @@ import { DividerWithText } from "./DividerWithText";
 import { OAuthButton } from "./OAuthButton";
 
 import * as z from "zod";
+import { loginApi } from "../../services/loginApi";
 import { AuthStore } from "../../store/auth.store";
-import { User } from "../../types/login.type";
 
 export const loginSchema = z.object({
   email: z
@@ -37,6 +38,8 @@ export const loginSchema = z.object({
 type LoginSchema = z.infer<typeof loginSchema>;
 
 export const LoginForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string>("");
   const {
     register,
     handleSubmit,
@@ -52,16 +55,24 @@ export const LoginForm = () => {
 
   const { login } = AuthStore();
 
-  const onSubmit = (data: LoginSchema) => {
-    console.log("onSubmit called with data:", data);
-    const payload: User = {
-      email: data.email,
-      password: data.password,
-    };
-    console.log("Payload:", payload);
-    login({
-      user: payload,
-    });
+  const onSubmit = async (data: LoginSchema) => {
+    setIsLoading(true);
+    setError("");
+    try {
+      const response = await loginApi(data);
+      if (response.success) {
+        console.log("Response:", response.user);
+        login(response.user, true);
+      } else {
+        console.log("Response:", response);
+        setError(response.message);
+      }
+    } catch (error) {
+      console.log("Error:", error);
+      setError((error as Error).message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const onError = (errors: any) => {
@@ -70,12 +81,13 @@ export const LoginForm = () => {
 
   return (
     <AuthLayout>
-      <AuthCard title="Sign In">
+      <AuthCard title="Sign In" error={error}>
         <form
           onSubmit={handleSubmit(onSubmit, onError)}
           className="space-y-4 w-full"
         >
           <InputField
+            disabled={isLoading}
             id="email"
             label="Email or Username"
             type="email"
@@ -85,6 +97,7 @@ export const LoginForm = () => {
             error={errors.email?.message}
           />
           <InputField
+            disabled={isLoading}
             id="password"
             label="Password"
             type="password"
@@ -94,14 +107,21 @@ export const LoginForm = () => {
             {...register("password")}
             error={errors.password?.message}
           />
-          <FormActions />
+          <FormActions disabled={isLoading} />
           <Button
+            disabled={isLoading}
             type="submit"
             variant="destructive"
             size="lg"
             className="w-full"
           >
-            Sign In
+            {isLoading ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" /> Signing in...
+              </>
+            ) : (
+              "Sign In"
+            )}
           </Button>
           <DividerWithText />
           <OAuthButton

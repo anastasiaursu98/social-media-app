@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Kaushan_Script, Roboto } from "next/font/google";
 import "./globals.css";
 
 const roboto = Roboto({
   subsets: ["latin"],
   variable: "--font-roboto",
   weight: ["100", "300", "400", "500", "700", "900"],
+});
+
+const kaushanScript = Kaushan_Script({
+  subsets: ["latin"],
+  variable: "--font-kaushan-script",
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {
@@ -20,7 +26,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${roboto.variable} antialiased`}>{children}</body>
+      <body
+        className={`${roboto.variable} ${kaushanScript.variable} antialiased`}
+      >
+        {children}
+      </body>
     </html>
   );
 }
