@@ -1,26 +1,38 @@
-import { LoginRequest, LoginResponse, User } from "../types/login.type";
-import { mockUsers } from "./mockUsers";
+import { AuthStore } from "../store/auth.store";
+import { LoginRequest, LoginResponse } from "../types/login.type";
+import { User } from "../types/user.type";
 
 export const loginApi = async (
   payload: LoginRequest
 ): Promise<LoginResponse> => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      const user = mockUsers.find(
-        (user: User) =>
-          user.email === payload.email && user.password === payload.password
+      const users = AuthStore.getState().users;
+
+      // First, find user by email (case-insensitive)
+      const user = users.find(
+        (user: User) => user.email.toLowerCase() === payload.email.toLowerCase()
       );
-      const invalidPassword = user?.password !== payload.password;
-      const invalidEmail = user?.email !== payload.email;
 
-      if (invalidPassword) {
-        return reject({ success: false, message: "Invalid password" });
+      // Check if user exists
+      if (!user) {
+        return reject({
+          success: false,
+          message:
+            "Email not found. Please check your email or sign up for a new account.",
+        });
       }
 
-      if (invalidEmail) {
-        return reject({ success: false, message: "Invalid email" });
+      // Check if password matches
+      if (user.password !== payload.password) {
+        return reject({
+          success: false,
+          message:
+            "Incorrect password. Please try again or reset your password.",
+        });
       }
 
+      // Success
       resolve({
         success: true,
         message: "Login successful",

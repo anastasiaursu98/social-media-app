@@ -1,12 +1,13 @@
 import { User } from "./user.type";
 
-export type LoginRequest = {
+export type SignUpRequest = {
+  first_name: string;
+  last_name: string;
   email: string;
   password: string;
-  remember_me?: boolean;
 };
 
-export type LoginResponse = {
+export type SignUpResponse = {
   success: boolean;
   message: string;
   user: User;

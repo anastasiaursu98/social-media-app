@@ -57,16 +57,9 @@ export const LoginForm = () => {
     submit(data);
   };
 
-  const onError = () => {
-    // Handle form validation errors if needed
-  };
-
   return (
     <AuthCard title="Sign In" error={error}>
-      <form
-        onSubmit={handleSubmit(onSubmit, onError)}
-        className="space-y-4 w-full"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full">
         <InputField
           disabled={isLoading}
           id="email"
