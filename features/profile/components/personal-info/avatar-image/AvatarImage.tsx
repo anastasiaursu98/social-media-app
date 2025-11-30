@@ -7,6 +7,7 @@ interface AvatarImageProps {
   hasStory?: boolean;
   alt?: string;
   className?: string;
+  showAvatarImageButton?: boolean;
 }
 
 export const AvatarImage = ({
@@ -15,9 +16,10 @@ export const AvatarImage = ({
   hasStory = false,
   alt = "avatar",
   className = "",
+  showAvatarImageButton = true,
 }: AvatarImageProps) => {
   const ring = hasStory
-    ? "p-1 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600"
+    ? "p-[2px] bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600"
     : "p-[2px] bg-gray-300";
 
   return (
@@ -35,7 +37,7 @@ export const AvatarImage = ({
             className="rounded-full object-cover w-full h-full"
           />
         </div>
-        <AvatarImageButton size={32} />
+        {showAvatarImageButton && <AvatarImageButton size={32} />}
       </div>
     </div>
   );

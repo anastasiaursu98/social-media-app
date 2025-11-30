@@ -1,51 +1,35 @@
 "use client";
 
-import { ROUTES } from "@/constants/routes";
 import {
-  Bookmark,
-  Clock,
-  Compass,
-  Film,
-  Heart,
-  Home,
-  Plus,
-  Search,
-  Send,
-  Settings,
-  User,
-} from "lucide-react";
-import { usePathname } from "next/navigation";
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+} from "@/components/ui/sidebar";
 
-const navigationItems = [
-  { icon: Home, label: "Home", href: "/" },
-  { icon: Search, label: "Search", href: "/search" },
-  { icon: Compass, label: "Explore", href: "/explore" },
-  { icon: Film, label: "Reels", href: "/reels" },
-  { icon: Send, label: "Messages", href: "/messages", badge: 3 },
-  { icon: Heart, label: "Notifications", href: "/notifications", badge: 12 },
-  { icon: Plus, label: "Create Post", href: "/create" },
-  { icon: User, label: "Profile", href: ROUTES.PROFILE },
-];
+import { AppSidebarHeader } from "./SidebarHeader";
+import { useSidebar } from "@/components/ui/sidebar";
+import { cn } from "@/lib/utils";
+import { AppSidebarFooter } from "./SidebarFooter";
+import { AppSidebarContents } from "./SidebarContents";
 
-const settingsItems = [
-  { icon: Settings, label: "Settings", href: "/settings" },
-  { icon: Clock, label: "Your Activity", href: "/activity" },
-  { icon: Bookmark, label: "Saved", href: "/saved" },
-];
-
-export const Sidebar = () => {
-  const pathname = usePathname();
-
+export const AppSidebar = () => {
+  const { open } = useSidebar();
   return (
-    <aside className="fixed left-0 top-0 h-screen w-64 bg-white border-r border-gray-200 flex flex-col z-40">
-      {/* Logo */}
-      <div className="p-6 border-b border-gray-200">
-        <h1 className="text-2xl font-bold font-kaushan-script">
-          <span className="bg-gradient-to-r from-purple-700 to-pink-600 bg-clip-text text-transparent">
-            StoryLine
-          </span>
-        </h1>
-      </div>
-    </aside>
+    <Sidebar
+      variant="sidebar"
+      collapsible="icon"
+      className={cn("bg-white py-2", open ? "px-4" : "px-0")}
+    >
+      <SidebarHeader>
+        <AppSidebarHeader />
+      </SidebarHeader>
+      <SidebarContent>
+        <AppSidebarContents />
+      </SidebarContent>
+      <SidebarFooter className="mb-4">
+        <AppSidebarFooter />
+      </SidebarFooter>
+    </Sidebar>
   );
 };

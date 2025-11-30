@@ -2,6 +2,8 @@ import { LayoutWrapper } from "@/layouts/LayoutWrapper";
 import type { Metadata } from "next";
 import { Kaushan_Script, Roboto } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { Suspense } from "react";
+import { RouteLoader } from "@/components/shared/RouteLoader";
 import "./globals.css";
 
 const roboto = Roboto({
@@ -32,7 +34,9 @@ export default function RootLayout({
       <body
         className={`${roboto.variable} ${kaushanScript.variable} antialiased`}
       >
-        <LayoutWrapper>{children}</LayoutWrapper>
+        <Suspense fallback={<RouteLoader />}>
+          <LayoutWrapper>{children}</LayoutWrapper>
+        </Suspense>
         <Analytics />
       </body>
     </html>

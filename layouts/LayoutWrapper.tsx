@@ -5,6 +5,7 @@ import { AuthStore } from "@/features/auth/store/auth.store";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { MainLayout } from "./MainLayout";
+import { RouteLoader } from "@/components/shared/RouteLoader";
 
 export function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -31,13 +32,13 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
     }
   }, [user, isChecking, isAuthPage, router]);
 
-  // Show nothing while checking or if not authenticated on protected route
+  // Show loader while checking or if not authenticated on protected route
   if (isChecking) {
-    return null;
+    return <RouteLoader />;
   }
 
   if (!user && !isAuthPage) {
-    return null;
+    return <RouteLoader />;
   }
 
   if (isAuthPage) {

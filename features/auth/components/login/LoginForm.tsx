@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, LockIcon, UserIcon } from "lucide-react";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
 import { AuthCard } from "../commun/AuthCard";
@@ -13,10 +12,7 @@ import { FormActions } from "./FormActions";
 import { OAuthButton } from "./OAuthButton";
 
 import { ROUTES } from "@/constants/routes";
-import { useRouter } from "next/navigation";
 import * as z from "zod";
-import { loginApi } from "../../services/loginApi";
-import { AuthStore } from "../../store/auth.store";
 import { AuthFooter } from "../commun/AuthFooter";
 import { useLogin } from "../../hooks/useLogin";
 
