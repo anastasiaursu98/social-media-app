@@ -31,25 +31,25 @@ export const ProfileDetails = ({
 }: ProfileDetailsProps) => {
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="text-base sm:text-lg font-bold mt-2 sm:mt-4">
+      <h2 className="text-base sm:text-lg md:text-xl lg:text-lg font-bold mt-2 md:mt-4">
         {fullName}
       </h2>
-      <p className="text-sm sm:text-base text-gray-700">{bio}</p>
+      <p className="text-sm sm:text-base md:text-lg lg:text-base text-gray-700">{bio}</p>
       {location && (
         <ContactInfo
-          icon={<MapPin className="w-5 h-5 text-red-500" />}
+          icon={<MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-red-500" />}
           text={location}
         />
       )}
       {job && (
         <ContactInfo
-          icon={<Briefcase className="w-5 h-5 text-amber-700" />}
+          icon={<Briefcase className="w-4 h-4 sm:w-5 sm:h-5 text-amber-700" />}
           text={job}
         />
       )}
       {website && (
         <ContactInfo
-          icon={<Globe className="w-5 h-5 text-blue-500" />}
+          icon={<Globe className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />}
           text={website}
         />
       )}

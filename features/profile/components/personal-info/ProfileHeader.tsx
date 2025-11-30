@@ -1,5 +1,5 @@
 import { Card } from "@/components/shared/Card";
-import { AvatarImage } from "@/features/profile/components/personal-info/avatar-image/AvatarImage";
+import { AvatarImage } from "@/components/shared/image/AvatarImage";
 import { EditProfileButton } from "./EditProfileButton";
 import { ProfileStats } from "./profile-status/ProfileStats";
 import { ProfileDetails } from "./ProfileDetails";
@@ -11,19 +11,23 @@ export const ProfileHeader = () => {
   const avatarSrc = DEFAULT_AVATAR_IMAGE;
   return (
     <Card>
-      <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6">
-        {/* Avatar - centered on mobile, larger on desktop */}
-        <div className="shrink-0 scale-100 sm:scale-125 origin-center sm:origin-top-left">
-          <AvatarImage size={80} src={avatarSrc} />
+      <div className="flex flex-col lg:flex-row items-center lg:items-start gap-6 lg:gap-8">
+        {/* Avatar - responsive sizing for all devices */}
+        <div className="shrink-0">
+          <AvatarImage 
+            size={100} 
+            src={avatarSrc} 
+            className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-28 lg:h-28 xl:w-32 xl:h-32"
+          />
         </div>
 
-        <div className="flex flex-col gap-3 w-full sm:flex-1">
+        <div className="flex flex-col gap-4 w-full lg:flex-1">
           {/* Header with username and buttons */}
           <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-4 w-full">
-            <h1 className="text-xl sm:text-2xl font-bold text-center sm:text-left">
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl font-bold text-center sm:text-left">
               {username}
             </h1>
-            <div className="flex items-center gap-2 sm:gap-4">
+            <div className="flex items-center gap-2 sm:gap-3">
               <EditProfileButton />
               <SettingsButton />
             </div>

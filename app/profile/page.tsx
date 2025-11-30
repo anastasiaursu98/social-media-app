@@ -1,5 +1,5 @@
-import { ProfileContent } from "@/features/profile/components/ProfileContent";
+import { Profile } from "@/features/profile/components/Profile";
 
 export default function ProfilePage() {
-  return <ProfileContent />;
+  return <Profile />;
 }

@@ -26,7 +26,7 @@ const stats = [
 
 export const ProfileStats = (props: ProfileStatsProps) => {
   return (
-    <div className="flex items-center justify-center sm:justify-start gap-4 sm:gap-6">
+    <div className="flex items-center justify-center sm:justify-start gap-6 sm:gap-8 md:gap-10 lg:gap-8 xl:gap-10 mb-3">
       {stats.map((stat) => (
         <StatItem
           key={stat.key}

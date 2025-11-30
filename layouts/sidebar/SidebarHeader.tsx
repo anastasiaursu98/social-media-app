@@ -1,4 +1,4 @@
-import { AvatarImage } from "@/features/profile/components/personal-info/avatar-image/AvatarImage";
+import { AvatarImage } from "@/components/shared/image/AvatarImage";
 import { DEFAULT_AVATAR_IMAGE } from "@/constants/images";
 import { useRouter } from "next/navigation";
 import { useSidebar } from "@/components/ui/sidebar";
