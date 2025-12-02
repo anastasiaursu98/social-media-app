@@ -13,18 +13,17 @@ interface ProfilePostsGridProps {
 
 export const ProfilePostsGrid = ({ posts }: ProfilePostsGridProps) => {
   const [items, setItems] = useState<ProfilePost[]>([]);
-  
+
   const allPosts = useMemo(
     () =>
       Array.from({ length: 20 }, (_, index) => ({
-        id: `${index}-${Date.now()}-${Math.random()}`, 
+        id: `${index}-${Date.now()}-${Math.random()}`,
         image: DEFAULT_AVATAR_IMAGE,
         alt: `Post ${index + 1}`,
       })),
     []
   );
 
-  
   const initialLoad = 8; // Initial number of posts to load
 
   useEffect(() => {
@@ -40,14 +39,14 @@ export const ProfilePostsGrid = ({ posts }: ProfilePostsGridProps) => {
     if (items.length >= allPosts.length) {
       return;
     }
-    
+
     const nextItems = allPosts?.slice(items.length, items.length + initialLoad);
     setItems((prevItems) => [...prevItems, ...(nextItems || [])]);
   }, [items.length, allPosts, initialLoad]);
 
-  const { loaderRef, isLoading } = useInfiniteScroll({ 
+  const { loaderRef, isLoading } = useInfiniteScroll({
     loadMore,
-    hasMore: items.length < allPosts.length 
+    hasMore: items.length < allPosts.length,
   });
 
   return (
