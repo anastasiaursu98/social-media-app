@@ -3,7 +3,6 @@ import { AvatarImage } from "@/components/shared/image/AvatarImage";
 import { EditProfileButton } from "./EditProfileButton";
 import { ProfileStats } from "./profile-status/ProfileStats";
 import { ProfileDetails } from "./ProfileDetails";
-import { SettingsButton } from "./SettingsButton";
 import { DEFAULT_AVATAR_IMAGE } from "@/constants/images";
 
 export const ProfileHeader = () => {
@@ -23,13 +22,12 @@ export const ProfileHeader = () => {
 
         <div className="flex flex-col gap-4 w-full lg:flex-1">
           {/* Header with username and buttons */}
-          <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-4 w-full">
+          <div className="flex flex-col sm:flex-row items-center justify-between">
             <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl font-bold text-center sm:text-left">
               {username}
             </h1>
             <div className="flex items-center gap-2 sm:gap-3">
               <EditProfileButton />
-              <SettingsButton />
             </div>
           </div>
 

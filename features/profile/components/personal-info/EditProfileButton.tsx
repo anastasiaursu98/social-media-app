@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { ROUTES } from "@/constants/routes";
-import { NotebookPen } from "lucide-react";
+import { Edit2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export const EditProfileButton = () => {
@@ -17,7 +17,7 @@ export const EditProfileButton = () => {
       className="cursor-pointer"
       onClick={() => router.push(ROUTES.EDIT_PROFILE)}
     >
-      <NotebookPen className="w-4 h-4" />
+      <Edit2 className="w-4 h-4" />
       <span>Edit Profile</span>
     </Button>
   );

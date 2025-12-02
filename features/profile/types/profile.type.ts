@@ -1,5 +1,5 @@
-export interface ProfilePost {
+export interface PostImage {
   id: string;
-  image: string;
-  alt: string;
+  file: File;
+  previewUrl: string;
 }

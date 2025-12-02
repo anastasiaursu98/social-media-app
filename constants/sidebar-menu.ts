@@ -16,6 +16,7 @@ export interface SidebarMenuItem {
   href: string;
   badge?: string;
   hasBadge?: boolean;
+  disabled?: boolean;
 }
 
 export const SIDEBAR_MENU_ITEMS: SidebarMenuItem[] = [
@@ -28,28 +29,26 @@ export const SIDEBAR_MENU_ITEMS: SidebarMenuItem[] = [
     title: "Search",
     icon: Search,
     href: "/search",
+    disabled: true,
   },
   {
     title: "Explore",
     icon: Compass,
     href: "/explore",
+    disabled: true,
   },
   {
     title: "Reels",
     icon: Play,
     href: "/reels",
+    disabled: true,
   },
   {
     title: "Messages",
     icon: Send,
     href: "/messages",
     badge: "1",
-  },
-  {
-    title: "Notifications",
-    icon: Heart,
-    href: "/notifications",
-    hasBadge: true,
+    disabled: true,
   },
   {
     title: "Create",
