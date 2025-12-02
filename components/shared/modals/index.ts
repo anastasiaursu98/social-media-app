@@ -1,3 +1,3 @@
 export { Modal } from "./Modal";
-export { ModalStatus as ModalSuccess } from "./ModalSucces";
-export { ModalLoading } from "./ModalLoading";
+export { ModalStatusSuccess as ModalSuccess } from "./ModalSucces";
+export { ModalStatusLoading as ModalLoading } from "./ModalLoading";
