@@ -1,5 +1,5 @@
 import { ProfileHeader } from "./personal-info/ProfileHeader";
-import { ProfilePostsGrid } from "./profile-content/ProfilePostsGrid";
+import { ProfileContent } from "./profile-content/ProfileContent";
 import { StoryHighlights } from "./story-highlights/StoryHighlights";
 
 export const Profile = () => {
@@ -8,7 +8,7 @@ export const Profile = () => {
       <div className="space-y-4 sm:space-y-6 w-full flex flex-col items-center">
         <ProfileHeader />
         <StoryHighlights />
-        <ProfilePostsGrid />
+        <ProfileContent />
       </div>
     </div>
   );

@@ -24,7 +24,7 @@ export const ImagePreviwCarusel = ({ images }: ImagePreviwCaruselProps) => {
               <div className="relative w-full h-full flex items-center justify-center">
                 <Image
                   src={image.previewUrl}
-                  alt={image.file.name}
+                  alt={image.file?.name || "Post image"}
                   width={image.width}
                   height={image.height}
                   className="max-w-full max-h-full object-contain"

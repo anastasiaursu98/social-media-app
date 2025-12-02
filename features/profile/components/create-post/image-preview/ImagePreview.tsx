@@ -7,7 +7,7 @@ import { Image as ImageType } from "../../../types/profile.type";
 
 interface ImagePreviewProps {
   images: ImageType[];
-  addMoreImages: (images: File[]) => void;
+  addMoreImages: (images: File[]) => Promise<void>;
   removeImagePost: (image: ImageType) => void;
   step: number;
 }
@@ -26,10 +26,11 @@ export const ImagePreview = ({
       {images.length > 0 && (
         <Image
           src={images[0].previewUrl}
-          alt={images[0].file.name}
+          alt={images[0].file?.name || "Post image"}
           className="w-full h-full object-contain rounded-md"
           width={images[0].width}
           height={images[0].height}
+          unoptimized
         />
       )}
 

@@ -1,7 +1,7 @@
 export interface Image {
   id: string;
-  file: File;
-  previewUrl: string;
+  file?: File; // Optional because we don't store File objects in localStorage
+  previewUrl: string; // Will be base64 data URL for persistence
   width: number;
   height: number;
 }
