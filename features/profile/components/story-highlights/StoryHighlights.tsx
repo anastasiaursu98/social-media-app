@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/carousel";
 import { DEFAULT_AVATAR_IMAGE } from "@/constants/images";
 import { useBreakpoint } from "@/hooks/use-breakpoint";
-import { useState, useEffect, useMemo } from "react";
+import { useMemo } from "react";
 
 const MAX_VISIBLE_HIGHLIGHTS = {
   mobile: 3,
@@ -19,7 +19,6 @@ const MAX_VISIBLE_HIGHLIGHTS = {
 } as const;
 
 export const StoryHighlights = () => {
-  const [showControls, setShowControls] = useState<boolean>(false);
   const deviceType = useBreakpoint();
 
   const highlights = useMemo(
@@ -32,14 +31,16 @@ export const StoryHighlights = () => {
     []
   );
 
-  useEffect(() => {
+  const showControls = useMemo(() => {
     const maxVisible = MAX_VISIBLE_HIGHLIGHTS[deviceType];
-    setShowControls(highlights.length > maxVisible);
+    return highlights.length > maxVisible;
   }, [deviceType, highlights.length]);
 
   return (
     <Card>
-      <h2 className="text-lg font-semibold mb-4 px-2 sm:px-0">Story Highlights</h2>
+      <h2 className="text-lg font-semibold mb-4 px-2 sm:px-0">
+        Story Highlights
+      </h2>
       <div className="relative">
         <Carousel
           opts={{
@@ -58,7 +59,13 @@ export const StoryHighlights = () => {
                   <AvatarImage
                     src={highlight.image}
                     alt={highlight.alt}
-                    size={deviceType === "mobile" ? 64 : deviceType === "tablet" ? 72 : 80}
+                    size={
+                      deviceType === "mobile"
+                        ? 64
+                        : deviceType === "tablet"
+                        ? 72
+                        : 80
+                    }
                     hasStory={true}
                     showAvatarImageButton={false}
                   />

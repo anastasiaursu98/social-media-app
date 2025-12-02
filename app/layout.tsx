@@ -5,6 +5,8 @@ import { Analytics } from "@vercel/analytics/next";
 import { Suspense } from "react";
 import { RouteLoader } from "@/components/shared/RouteLoader";
 import "./globals.css";
+import { Toaster } from "sonner";
+import { GlobalModals } from "@/components/shared/modals/GlobalModals";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -37,6 +39,8 @@ export default function RootLayout({
         <Suspense fallback={<RouteLoader />}>
           <LayoutWrapper>{children}</LayoutWrapper>
         </Suspense>
+        <GlobalModals />
+        <Toaster />
         <Analytics />
       </body>
     </html>

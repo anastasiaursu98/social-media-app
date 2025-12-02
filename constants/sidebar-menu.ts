@@ -4,7 +4,6 @@ import {
   Compass,
   Play,
   Send,
-  Heart,
   Plus,
   LucideIcon,
 } from "lucide-react";

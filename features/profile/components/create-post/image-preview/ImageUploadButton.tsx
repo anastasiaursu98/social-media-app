@@ -3,10 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { PiImagesThin } from "react-icons/pi";
-import { ImagePreview } from "./image-preview/ImagePreview";
-import { ProfileStore } from "../../store/profile.store";
+import { ImagePreview } from "./ImagePreview";
+import { ProfileStore } from "../../../store/profile.store";
 
-export const ImageUploadButton = () => {
+interface ImageUploadButtonProps {
+  step: number;
+}
+export const ImageUploadButton = ({ step }: ImageUploadButtonProps) => {
   const imagesPost = ProfileStore((state) => state.imagesPost);
   const addImagePost = ProfileStore((state) => state.addImagePost);
   const removeImagePost = ProfileStore((state) => state.removeImagePost);
@@ -23,8 +26,9 @@ export const ImageUploadButton = () => {
       {imagesPost.length > 0 && (
         <ImagePreview
           images={imagesPost}
-          addMoreImages={addImagePost}
+          addMoreImages={(images: File[]) => addImagePost(images)}
           removeImagePost={removeImagePost}
+          step={step}
         />
       )}
       {imagesPost.length === 0 && (

@@ -1,34 +1,79 @@
 import { create } from "zustand";
-import { PostImage } from "../types/profile.type";
-
+import { AllImagesPost, Image } from "../types/profile.type";
+import { persist } from "zustand/middleware";
 interface ProfileStateInterface {
-  imagesPost: PostImage[];
-  setImagesPost: (images: PostImage[]) => void;
+  allImagesPost: AllImagesPost[];
+  imagesPost: Image[];
+  description: string;
+
+  setAllImagesPost: (images: AllImagesPost[]) => void;
+  setImagesPost: (images: Image[]) => void;
+  setDescription: (description: string) => void;
   addImagePost: (image: File[]) => void;
-  removeImagePost: (image: PostImage) => void;
+  addAllImagesPost: (description?: string) => void;
+  removeImagePost: (image: Image) => void;
 }
 
-export const ProfileStore = create<ProfileStateInterface>((set) => ({
-  imagesPost: [],
+export const ProfileStore = create<ProfileStateInterface>()(
+  persist(
+    (set) => ({
+      allImagesPost: [],
+      imagesPost: [],
+      description: "",
 
-  setImagesPost: (images: PostImage[]) => {
-    set({ imagesPost: images });
-  },
-  addImagePost: (images: File[]) => {
-    set((state) => ({
-      imagesPost: [
-        ...state.imagesPost,
-        ...images.map((image) => ({
-          id: Date.now().toString(),
-          file: image,
-          previewUrl: URL.createObjectURL(image),
-        })),
-      ],
-    }));
-  },
-  removeImagePost: (image: PostImage) => {
-    set((state) => ({
-      imagesPost: state.imagesPost.filter((img) => img.id !== image.id),
-    }));
-  },
-}));
+      setAllImagesPost: (images: AllImagesPost[]) => {
+        set({ allImagesPost: images });
+      },
+      setImagesPost: (images: Image[]) => {
+        set({ imagesPost: images });
+      },
+      setDescription: (description: string) => {
+        set({ description });
+      },
+      addImagePost: (images: File[]) => {
+        set((state: ProfileStateInterface) => {
+          const newImages: Image[] = images.map((image, index) => ({
+            id: `${Date.now()}-${index}`,
+            file: image,
+            previewUrl: URL.createObjectURL(image),
+            width: 500,
+            height: 500,
+          }));
+          return {
+            imagesPost: [...state.imagesPost, ...newImages],
+          };
+        });
+      },
+      addAllImagesPost: (description: string = "") => {
+        set((state: ProfileStateInterface) => {
+          // Create a new AllImagesPost from current imagesPost with description
+          const finalDescription = description || state.description;
+          const newPost: AllImagesPost = {
+            id: Date.now().toString(),
+            images: state.imagesPost,
+            description: finalDescription,
+          };
+
+          return {
+            allImagesPost: [...state.allImagesPost, newPost],
+            imagesPost: [],
+            description: "",
+          };
+        });
+      },
+      removeImagePost: (image: Image) => {
+        set((state: ProfileStateInterface) => ({
+          imagesPost: state.imagesPost.filter(
+            (img: Image) => img.id !== image.id
+          ),
+        }));
+      },
+    }),
+    {
+      name: "profile-store",
+      partialize: (state: ProfileStateInterface) => ({
+        allImagesPost: state.allImagesPost,
+      }),
+    }
+  )
+);

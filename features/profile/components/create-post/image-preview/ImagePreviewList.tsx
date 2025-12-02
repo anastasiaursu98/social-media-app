@@ -3,12 +3,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { PlusIcon, XIcon } from "lucide-react";
 import Image from "next/image";
-import { PostImage } from "../../../types/profile.type";
+import { Image as ImageType } from "../../../types/profile.type";
 
 interface ImagePreviewListProps {
-  images: PostImage[];
+  images: ImageType[];
   addMoreImages: (images: File[]) => void;
-  removeImagePost: (image: PostImage) => void;
+  removeImagePost: (image: ImageType) => void;
+  onError?: (message: string) => void;
 }
 export const ImagePreviewList = ({
   images,
@@ -17,12 +18,10 @@ export const ImagePreviewList = ({
 }: ImagePreviewListProps) => {
   // Dimensions for each item (image or "+" button)
   const imageWidth = 100;
-  const gap = 8; // must correspond to Tailwind gap-2 (~8px)
+  const gap = 8;
 
-  // We have one extra "item" for the "+" button
   const itemsCount = images.length + 1;
 
-  // Total width = width of all items + width of gaps between them
   const totalWidth = itemsCount * imageWidth + (itemsCount - 1) * gap;
 
   return (
@@ -60,21 +59,22 @@ export const ImagePreviewList = ({
 
       <div className="flex items-center justify-start">
         <Button
-          disabled={images.length >= 3}
+          disabled={images.length > 3}
           className="cursor-pointer bg-black/60 hover:bg-black/70 p-4 w-10 h-10 rounded-full border border-gray-100 hover:border-gray-200"
         >
           <Label htmlFor="image-upload">
-            <Input
-              disabled={images.length >= 3}
-              id="image-upload"
-              type="file"
-              accept="image/*"
-              multiple
-              className="hidden"
-              onChange={(e) =>
-                addMoreImages(Array.from(e.target.files || ([] as File[])))
-              }
-            />
+            {images.length < 3 && (
+              <Input
+                id="image-upload"
+                type="file"
+                accept="image/*"
+                multiple
+                className="hidden"
+                onChange={(e) =>
+                  addMoreImages(Array.from(e.target.files || ([] as File[])))
+                }
+              />
+            )}
             <PlusIcon className="w-10 h-10 text-gray-100" />
           </Label>
         </Button>

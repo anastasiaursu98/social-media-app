@@ -1,23 +1,25 @@
 import { Button } from "@/components/ui/button";
-import { CopyIcon, PlusIcon, XIcon } from "lucide-react";
+import { CopyIcon } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { ImagePreviewList } from "./ImagePreviewList";
-import { PostImage } from "../../../types/profile.type";
+import { Image as ImageType } from "../../../types/profile.type";
 
 interface ImagePreviewProps {
-  images: PostImage[];
+  images: ImageType[];
   addMoreImages: (images: File[]) => void;
-  removeImagePost: (image: PostImage) => void;
+  removeImagePost: (image: ImageType) => void;
+  step: number;
 }
 
 export const ImagePreview = ({
   images,
   addMoreImages,
   removeImagePost,
+  step,
 }: ImagePreviewProps) => {
   const [showBottomAdd, setShowBottomAdd] = useState(false);
-
+  console.log(images.length);
   return (
     <div className="relative w-full h-full flex justify-center items-center">
       {/* Show only the first image as Instagram (before swipe/carousel) */}
@@ -25,9 +27,9 @@ export const ImagePreview = ({
         <Image
           src={images[0].previewUrl}
           alt={images[0].file.name}
-          className="w-full h-full object-cover rounded-md"
-          width={600}
-          height={600}
+          className="w-full h-full object-contain rounded-md"
+          width={images[0].width}
+          height={images[0].height}
         />
       )}
 
@@ -43,10 +45,10 @@ export const ImagePreview = ({
       </div>
 
       {/* Bottom Container */}
-      {showBottomAdd && (
+      {showBottomAdd && step === 1 && (
         <>
-          <div className="absolute bottom-6 left-8">
-            {images.length >= 3 && (
+          <div className="absolute bottom-6 right-14">
+            {images.length === 3 && (
               <span className="text-sm text-red-500 mb-2">
                 You can only add up to 3 images
               </span>

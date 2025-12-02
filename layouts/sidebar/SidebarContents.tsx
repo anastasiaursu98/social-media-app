@@ -27,8 +27,12 @@ export const AppSidebarContents = () => {
   return (
     <React.Fragment>
       {createPost && (
-        <CreatePost isOpen={createPost} onClose={() => setCreatePost(false)} />
+        <CreatePost 
+          isOpen={createPost} 
+          onClose={() => setCreatePost(false)}
+        />
       )}
+
       <SidebarGroup>
         <SidebarMenu>
           {SIDEBAR_MENU_ITEMS.map((item) => {
