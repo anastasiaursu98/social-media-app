@@ -42,21 +42,27 @@ export const ProfileStore = create<ProfileStateInterface>()(
         set({ description });
       },
       addImagePost: async (images: File[]) => {
-        const imagePromises = images.map(async (image, index) => {
-          const base64 = await fileToBase64(image);
-          return {
-            id: `${Date.now()}-${index}-${crypto.randomUUID()}`,
-            previewUrl: base64,
-            width: 500,
-            height: 500,
-          } as Image;
-        });
+        // Convert all files to base64 data URLs
+        try {
+          const imagePromises = images.map(async (image, index) => {
+            const base64 = await fileToBase64(image);
+            return {
+              id: `${Date.now()}-${index}-${crypto.randomUUID()}`,
+              previewUrl: base64,
+              width: 500,
+              height: 500,
+            } as Image;
+          });
 
-        const newImages = await Promise.all(imagePromises);
+          const newImages = await Promise.all(imagePromises);
 
-        set((state: ProfileStateInterface) => ({
-          imagesPost: [...state.imagesPost, ...newImages],
-        }));
+          set((state: ProfileStateInterface) => ({
+            imagesPost: [...state.imagesPost, ...newImages],
+          }));
+        } catch (error) {
+          console.error("Error adding images:", error);
+          throw error;
+        }
       },
       addAllImagesPost: (description: string = "") => {
         set((state: ProfileStateInterface) => {
@@ -88,7 +94,6 @@ export const ProfileStore = create<ProfileStateInterface>()(
 
       partialize: (state: ProfileStateInterface) => ({
         allImagesPost: state.allImagesPost,
-        imagesPost: state.imagesPost,
         description: state.description,
       }),
     }

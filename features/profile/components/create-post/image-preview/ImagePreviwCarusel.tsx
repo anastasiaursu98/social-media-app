@@ -28,6 +28,7 @@ export const ImagePreviwCarusel = ({ images }: ImagePreviwCaruselProps) => {
                   width={image.width}
                   height={image.height}
                   className="max-w-full max-h-full object-contain"
+                  unoptimized
                 />
               </div>
             </CarouselItem>

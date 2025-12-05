@@ -54,14 +54,11 @@ export const Modal = ({
   const modalContent = (
     <div
       className={cn(
-        "fixed inset-0 z-50 flex items-center justify-center",
+        "fixed inset-0 z-50 flex items-center justify-center bg-black/50 animate-in fade-in-0",
         className
       )}
       onClick={handleOverlayClick}
     >
-      {/* Overlay */}
-      <div className="fixed inset-0 bg-black/50 animate-in fade-in-0" />
-
       {/* Modal Content */}
       <div
         className={cn(

@@ -11,16 +11,21 @@ import { RefObject } from "react";
 
 export const ProfileContent = () => {
   const [items, setItems] = useState<AllImagesPost[]>([]);
+  const [previousLength, setPreviousLength] = useState(0);
 
   const { allImagesPost } = ProfileStore();
 
   const initialLoad = 8; // Initial number of posts to load
 
   useEffect(() => {
-    // Load initial items whenever allImagesPost changes
-    const initialItems = allImagesPost.slice(0, initialLoad);
-    setItems(initialItems);
-  }, [allImagesPost, initialLoad]);
+    // Only update items if the length of allImagesPost has changed
+    // This prevents duplicate renders when the same data is rehydrated
+    if (allImagesPost.length !== previousLength) {
+      const initialItems = allImagesPost.slice(0, initialLoad);
+      setItems(initialItems);
+      setPreviousLength(allImagesPost.length);
+    }
+  }, [allImagesPost, initialLoad, previousLength]);
 
   const loadMore = useCallback(() => {
     // Don't load more if we've already loaded all posts

@@ -7,7 +7,7 @@ export interface Image {
 }
 export interface PostImage {
   description: string;
-  images: Image[] | Image;
+  images: Image[];
 }
 
 export interface AllImagesPost {

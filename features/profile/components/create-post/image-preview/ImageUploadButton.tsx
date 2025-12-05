@@ -5,7 +5,6 @@ import { Label } from "@/components/ui/label";
 import { PiImagesThin } from "react-icons/pi";
 import { ImagePreview } from "./ImagePreview";
 import { ProfileStore } from "../../../store/profile.store";
-import { useState } from "react";
 
 interface ImageUploadButtonProps {
   step: number;
@@ -14,40 +13,20 @@ export const ImageUploadButton = ({ step }: ImageUploadButtonProps) => {
   const imagesPost = ProfileStore((state) => state.imagesPost);
   const addImagePost = ProfileStore((state) => state.addImagePost);
   const removeImagePost = ProfileStore((state) => state.removeImagePost);
-  const [isUploading, setIsUploading] = useState(false);
 
   /**
    * Handle image upload
    * @param e - React.ChangeEvent<HTMLInputElement>
-   */
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+   */ const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    if (files) {
-      setIsUploading(true);
-      try {
-        await addImagePost(Array.from(files));
-      } catch (error) {
-        console.error("Error uploading images:", error);
-      } finally {
-        setIsUploading(false);
-      }
-    }
+    if (files) addImagePost(Array.from(files));
   };
   return (
     <div className={`${imagesPost.length > 0 ? "w-full h-full " : ""}`}>
       {imagesPost.length > 0 && (
         <ImagePreview
           images={imagesPost}
-          addMoreImages={async (images: File[]) => {
-            setIsUploading(true);
-            try {
-              await addImagePost(images);
-            } catch (error) {
-              console.error("Error uploading images:", error);
-            } finally {
-              setIsUploading(false);
-            }
-          }}
+          addMoreImages={(images: File[]) => addImagePost(images)}
           removeImagePost={removeImagePost}
           step={step}
         />
@@ -67,7 +46,6 @@ export const ImageUploadButton = ({ step }: ImageUploadButtonProps) => {
               variant="default"
               className="cursor-pointer px-14"
               type="button"
-              disabled={isUploading}
             >
               <Label htmlFor="image-upload" className="cursor-pointer">
                 <Input
@@ -77,9 +55,8 @@ export const ImageUploadButton = ({ step }: ImageUploadButtonProps) => {
                   className="hidden"
                   multiple
                   onChange={handleImageUpload}
-                  disabled={isUploading}
                 />
-                {isUploading ? "Uploading..." : "Select from device"}
+                Select from device
               </Label>
             </Button>
           </div>
